@@ -28,7 +28,6 @@ resource "azurerm_data_factory" "adf-dev" {
   }
 }  
 
-
 resource "azurerm_storage_account" "adl-dev" {
     name                     = "adldevidlnxp"
     resource_group_name      = azurerm_resource_group.rg.name
@@ -49,18 +48,5 @@ resource "azurerm_databricks_workspace" "adb-dev" {
   sku                 = "standard"
   tags = {
     Environment = "Development"
-  }
-}
-
-resource "azurerm_databricks_cluster" "cls01" {
-  name                      = "cls01"
-  resource_group_name       = azurerm_databricks_workspace.adb-dev.resource_group_name
-  location                  = azurerm_databricks_workspace.adb-dev.location
-  workspace_resource_id     = azurerm_databricks_workspace.adb-dev.id
-  node_type_id              = "Standard_DSv2"
-  num_workers               = 2
-  auto_scale {
-    min_workers = 1
-    max_workers = 3
   }
 }
